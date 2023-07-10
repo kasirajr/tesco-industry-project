@@ -26,12 +26,12 @@ class InterestRateCIRPP(ExtendedCIR):
 
 
 class CreditRiskCIRPP(ExtendedCIR):
-    def __init__(self, interestTermStructure, creditTermStructure, k, theta, sigma, x0):
+    def __init__(self, interestTermStructure, creditTermStructure, k, theta, sigma, x0, rr, pf):
         super().__init__(k, theta, sigma, x0)
         prob = cdstools.CDS_bootstrap(creditTermStructure['spread'],
                                                           interestTermStructure['rate'],
                                                           creditTermStructure['years'],
-                                                          interestTermStructure['years'], 4, 0.4)
+                                                          interestTermStructure['years'], pf, rr)
 
         self.termStructureSpline = CubicSpline(creditTermStructure['years'], prob[0])
 
