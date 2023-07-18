@@ -136,15 +136,18 @@ class LoanBookSimulation:
         return loan_book_segmentation
 
     def split_loan_into_tranches(self, loans):
-        loan_tranches = []
+        loan_tranches = {}
         types = [0, 1, 2]
+        dict_map = {'0': 'L', '1': 'M', '2': 'H'}
         for amount_segment in types:
             for term_segment in types:
                 for credit_segment in types:
                     for fixed_rate_segment in types:
-                        loan_tranches.append(loans[(loans['loan_amount_segment'] == amount_segment) & (loans[
-                            'loan_term_segment'] == term_segment) &
-                                                   (loans['credit_quality_segment'] == credit_segment) & (loans[
-                                                       'fixed_rate_segment'] == fixed_rate_segment)])
+                        seg_key = [str(amount_segment), str(term_segment), str(credit_segment), str(fixed_rate_segment)]
+                        segment = ''.join([dict_map[digit] for digit in seg_key])
+                        loan_tranches[segment] = loans[(loans['loan_amount_segment'] == amount_segment) & (loans[
+                                                                                                               'loan_term_segment'] == term_segment) &
+                                                       (loans['credit_quality_segment'] == credit_segment) & (loans[
+                                                                                                                  'fixed_rate_segment'] == fixed_rate_segment)]
 
         return loan_tranches
