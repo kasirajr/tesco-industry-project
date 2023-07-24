@@ -99,7 +99,7 @@ class SSRDSimulation:
         ct[:, i - 1] = yt[:, i - 1] + self.creditRiskModel.termStructureSpline(
             self.dt * (i - 1)) - self.creditRiskModel.fcir(
             (i - 1) * self.dt)
-        return xt, yt, rt, ct, rt + ct
+        return rt, ct, rt + ct
 
     def nextTerm(self, model, dw, previousTerm):
         first_term = np.square(model.sigma) * np.square(dw)
