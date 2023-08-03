@@ -2,7 +2,6 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 import cdstools
 
-
 class ExtendedCIR:
     def __init__(self, k, theta, sigma, x0):
         self.k = k
